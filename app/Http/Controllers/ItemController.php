@@ -10,7 +10,8 @@ class ItemController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Items/Index', []);
+        $items = Item::all();
+        return Inertia::render('Items/Index', compact('items'));
     }
 
     public function create()
@@ -28,6 +29,12 @@ class ItemController extends Controller
 
         Item::create($request->all());
 
+        return redirect()->route('items.index');
+    }
+
+    public function destroy(Item $item)
+    {
+        $item->delete();
         return redirect()->route('items.index');
     }
 }

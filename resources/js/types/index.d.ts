@@ -41,3 +41,13 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Item {
+    id: number;
+    barcode: string;
+    name: string;
+    unit_measurement: string;
+    status: "Active" | "Inactive";
+    created_at: string;
+    updated_at: string;
+}
