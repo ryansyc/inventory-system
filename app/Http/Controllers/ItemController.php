@@ -32,6 +32,28 @@ class ItemController extends Controller
         return redirect()->route('items.index');
     }
 
+    public function edit(Item $item)
+    {
+        return Inertia::render('Items/Edit', 
+            [
+                'item' => $item
+            ]);
+    }
+
+    public function update(Request $request, Item $item)
+    {
+        $validated = $request->validate([
+            'barcode' => ['sometimes', 'required', 'max:255'],
+            'name' => ['sometimes', 'required', 'max:255'],
+            'unit_measurement' => ['sometimes', 'required', 'max:255'],
+        ]);
+
+        $item->update($validated);
+
+        return redirect()->route('items.index');
+    }
+
+
     public function destroy(Item $item)
     {
         $item->delete();

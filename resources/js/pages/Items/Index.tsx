@@ -39,7 +39,9 @@ export default function Index({ items }: Props) {
             <Head title="Items" />
             <div className="m-4">
                 <Link href="items/create">
-                    <Button>Create</Button>
+                    <Button className="bg-blue-500 text-white hover:bg-blue-600">
+                        Create
+                    </Button>
                 </Link>
             </div>
             {items.length > 0 && (
@@ -70,7 +72,7 @@ export default function Index({ items }: Props) {
                                     </TableCell>
                                     <TableCell className="flex justify-end gap-4 text-right">
                                         <Link
-                                            href={`items/${item.id}/edit`}
+                                            href={'items/edit/' + item.id}
                                             className="font-medium text-yellow-300 hover:text-yellow-400"
                                         >
                                             Edit
