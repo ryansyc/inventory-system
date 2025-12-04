@@ -16,18 +16,18 @@ class ItemController extends Controller
 
     public function create()
     {
-        return Inertia::render('Items/Create', []);
+        return Inertia::render('Items/Create');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'barcode' => ['required', 'max:255'],
             'name' => ['required', 'max:255'],
-            'unit_measurement' => ['required', 'max:255'],
+            'uom' => ['required', 'max:255'],
         ]); 
 
-        Item::create($request->all());
+        Item::create($validated);
 
         return redirect()->route('items.index');
     }
@@ -45,14 +45,13 @@ class ItemController extends Controller
         $validated = $request->validate([
             'barcode' => ['sometimes', 'required', 'max:255'],
             'name' => ['sometimes', 'required', 'max:255'],
-            'unit_measurement' => ['sometimes', 'required', 'max:255'],
+            'uom' => ['sometimes', 'required', 'max:255'],
         ]);
 
         $item->update($validated);
 
         return redirect()->route('items.index');
     }
-
 
     public function destroy(Item $item)
     {

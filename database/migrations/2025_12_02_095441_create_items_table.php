@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('barcode');
             $table->string('name');
-            $table->string('unit_measurement');
+            $table->string('uom');
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
         });
