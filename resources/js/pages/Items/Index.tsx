@@ -1,17 +1,10 @@
 import { Button } from '@/components/ui/button';
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Item } from '@/types/index';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { columns } from './Columns';
+import { DataTable } from './DataTable';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -34,6 +27,14 @@ export default function Index({ items }: Props) {
         }
     };
 
+    const data = items.map((item) => ({
+        id: item.id,
+        barcode: item.barcode,
+        name: item.name,
+        uom: item.uom,
+        status: item.status,
+    }));
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Items" />
@@ -44,55 +45,9 @@ export default function Index({ items }: Props) {
                     </Button>
                 </Link>
             </div>
-            {items.length > 0 && (
-                <div className="m-4">
-                    <Table>
-                        <TableCaption>A list of your items.</TableCaption>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-[100px]">ID</TableHead>
-                                <TableHead>Barcode</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Unit of Measurement</TableHead>
-                                <TableHead className="text-right">
-                                    Actions
-                                </TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {items.map((item) => (
-                                <TableRow key={item.id}>
-                                    <TableCell className="font-medium">
-                                        {item.id}
-                                    </TableCell>
-                                    <TableCell>{item.barcode}</TableCell>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>
-                                        {item.unit_measurement}
-                                    </TableCell>
-                                    <TableCell className="flex justify-end gap-4 text-right">
-                                        <Link
-                                            href={'items/edit/' + item.id}
-                                            className="font-medium text-yellow-300 hover:text-yellow-400"
-                                        >
-                                            Edit
-                                        </Link>
-                                        <Link
-                                            onClick={() =>
-                                                handleDelete(item.id, item.name)
-                                            }
-                                            disabled={processing}
-                                            className="font-medium text-red-400 hover:text-red-500"
-                                        >
-                                            Delete
-                                        </Link>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </div>
-            )}
+            <div className="m-4">
+                <DataTable columns={columns} data={data} />
+            </div>
         </AppLayout>
     );
 }

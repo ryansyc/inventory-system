@@ -46,7 +46,7 @@ export interface Item {
     id: number;
     barcode: string;
     name: string;
-    unit_measurement: string;
+    uom: string;
     status: "Active" | "Inactive";
     created_at: string;
     updated_at: string;

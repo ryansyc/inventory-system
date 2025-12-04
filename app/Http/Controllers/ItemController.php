@@ -10,8 +10,9 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
-        return Inertia::render('Items/Index', compact('items'));
+        return Inertia::render('Items/Index', [
+            'items' => Item::all()
+        ]);
     }
 
     public function create()
