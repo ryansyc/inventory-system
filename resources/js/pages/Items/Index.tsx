@@ -26,7 +26,7 @@ interface Props {
 }
 
 export default function Index({ items }: Props) {
-    const { processing, delete: destroy } = useForm();
+    const { delete: destroy } = useForm();
 
     const handleDelete = (id: number, name: string) => {
         if (confirm(`Are you sure you want to delete ${name}?`)) {
