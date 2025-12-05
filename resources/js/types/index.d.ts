@@ -44,10 +44,47 @@ export interface User {
 
 export interface Item {
     id: number;
-    barcode: string;
+    category_id: number;
+    code: string;
     name: string;
-    uom: string;
-    status: "Active" | "Inactive";
+    unit: string;
+    min_stock: number;
+    created_at: string;
+    updated_at: string;
+    category_name: string;
+}
+
+export interface Category {
+    id: number;
+    name: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Stock {
+    id: number;
+    item_id: number;
+    quantity: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface Transaction {
+    id: number;
+    type: string;
+    date: string;
+    description: string;
+    quantity: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface TransactionItem {
+    id: number;
+    transaction_id: number;
+    item_id: number;
+    quantity: number;
+    unit_price: number;
     created_at: string;
     updated_at: string;
 }

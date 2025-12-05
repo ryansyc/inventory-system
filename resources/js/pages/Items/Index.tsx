@@ -3,8 +3,6 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Item } from '@/types/index';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { columns } from './Columns';
-import { DataTable } from './DataTable';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,10 +27,11 @@ export default function Index({ items }: Props) {
 
     const data = items.map((item) => ({
         id: item.id,
-        barcode: item.barcode,
+        barcode: item.code,
         name: item.name,
-        uom: item.uom,
-        status: item.status,
+        unit: item.unit,
+        min_stok: item.min_stock,
+        category: item.category_name,
     }));
 
     return (
@@ -45,9 +44,7 @@ export default function Index({ items }: Props) {
                     </Button>
                 </Link>
             </div>
-            <div className="m-4">
-                <DataTable columns={columns} data={data} />
-            </div>
+            <div className="m-4"></div>
         </AppLayout>
     );
 }
