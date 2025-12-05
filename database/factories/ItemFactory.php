@@ -3,16 +3,18 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Category;
 
 class ItemFactory extends Factory
 {
     public function definition()
     {
         return [
-            'barcode' => $this->faker->unique()->ean13(),
-            'name' => $this->faker->words(2, true),
-            'uom' => $this->faker->randomElement(['pcs', 'kg', 'box', 'pack']),
-            'status' => $this->faker->randomElement(['Active', 'Inactive']),
+            'category_id' => Category::factory(),
+            'code'        => strtoupper($this->faker->bothify('ITM-####')),
+            'name'        => $this->faker->words(3, true),
+            'unit'        => $this->faker->randomElement(['pcs', 'box', 'kg', 'litre']),
+            'min_stock'   => $this->faker->numberBetween(1, 50),
         ];
     }
 }
