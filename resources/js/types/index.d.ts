@@ -44,14 +44,14 @@ export interface User {
 
 export interface Item {
     id: number;
-    category_id: number;
     code: string;
     name: string;
     unit: string;
+    category_id: number;
     min_stock: number;
     created_at: string;
     updated_at: string;
-    category_name: string;
+    category: Category
 }
 
 export interface Category {

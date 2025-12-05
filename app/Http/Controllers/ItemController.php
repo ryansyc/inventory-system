@@ -5,27 +5,33 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Item;
+use App\Models\Category;
 
 class ItemController extends Controller
 {
     public function index()
     {
         return Inertia::render('Items/Index', [
-            'items' => Item::all()
+            'items' => Item::with('category:id,name')->get()
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Items/Create');
+        return Inertia::render('Items/Form', [
+            'item' => null,
+            'categories' => Category::select('id', 'name')->get()
+        ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'barcode' => ['required', 'max:255'],
+            'code' => ['required', 'max:255'],
             'name' => ['required', 'max:255'],
-            'uom' => ['required', 'max:255'],
+            'unit' => ['required', 'max:255'],
+            'min_stock' => ['required', 'numeric'],
+            'category_id' => ['required', 'exists:categories,id'],
         ]); 
 
         Item::create($validated);
@@ -35,19 +41,22 @@ class ItemController extends Controller
 
     public function edit(Item $item)
     {
-        return Inertia::render('Items/Edit', 
+        return Inertia::render('Items/Form', 
             [
-                'item' => $item
+                'item' => $item,
+                'categories' => Category::select('id', 'name')->get()
             ]);
     }
 
     public function update(Request $request, Item $item)
     {
         $validated = $request->validate([
-            'barcode' => ['sometimes', 'required', 'max:255'],
-            'name' => ['sometimes', 'required', 'max:255'],
-            'uom' => ['sometimes', 'required', 'max:255'],
-        ]);
+            'code' => ['required', 'max:255'],
+            'name' => ['required', 'max:255'],
+            'unit' => ['required', 'max:255'],
+            'min_stock' => ['required', 'numeric'],
+            'category_id' => ['required', 'exists:categories,id'],
+        ]); 
 
         $item->update($validated);
 

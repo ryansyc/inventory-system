@@ -15,12 +15,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    // Items
     Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+    Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
     Route::post('/items', [ItemController::class, 'store'])->name('items.store');
+    Route::get('/items/{item}/edit', [ItemController::class, 'edit'])->name('items.edit');
     Route::patch('/items/{item}', [ItemController::class, 'update'])->name('items.update');
     Route::delete('/items/{item}', [ItemController::class, 'destroy'])->name('items.destroy');
-    Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
-    Route::get('/items/edit/{item}', [ItemController::class, 'edit'])->name('items.edit');
 });
 
 require __DIR__.'/settings.php';
