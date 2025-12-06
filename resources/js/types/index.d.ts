@@ -56,6 +56,7 @@ export interface Transaction {
     id: number;
     type: string;
     date: string;
+    total_amount: number;
     notes: string;
     created_at: string;
     updated_at: string;
@@ -67,6 +68,7 @@ export interface TransactionItem {
     item_id: number;
     quantity: number;
     unit_price: number;
+    total_price: number;
     created_at: string;
     updated_at: string;
 }

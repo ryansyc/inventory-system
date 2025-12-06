@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { Category, Item, type BreadcrumbItem } from '@/types';
+import { Item, type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -11,18 +11,16 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface Props {
     item?: Item;
-    categories: Category[];
 }
 
-export default function Form({ item, categories }: Props) {
+export default function Form({ item }: Props) {
     const isEdit = Boolean(item?.id);
 
     const initial = {
         code: item?.code ?? '',
         name: item?.name ?? '',
         unit: item?.unit ?? '',
-        min_stock: Number(item?.min_stock ?? 0),
-        category_id: Number(item?.category_id ?? 0),
+        stock: item?.stock ?? '',
     };
 
     const { data, setData, post, patch } = useForm(initial);
@@ -50,67 +48,48 @@ export default function Form({ item, categories }: Props) {
                     <div className="flex flex-col gap-1">
                         <label className="text-sm font-medium">Item Code</label>
                         <input
-                            type="text"
                             className="w-full rounded border p-2"
-                            value={data.code}
                             onChange={(e) => setData('code', e.target.value)}
+                            placeholder="Kode barang"
+                            required
+                            type="text"
+                            value={data.code}
                         />
                     </div>
                     <div className="flex flex-col gap-1">
                         <label className="text-sm font-medium">Item Name</label>
                         <input
-                            type="text"
                             className="w-full rounded border p-2"
-                            value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
+                            placeholder="Nama barang"
+                            required
+                            type="text"
+                            value={data.name}
                         />
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium">
-                            Unit Measurement
-                        </label>
+                        <label className="text-sm font-medium">Unit</label>
                         <input
-                            type="text"
                             className="w-full rounded border p-2"
-                            value={data.unit}
                             onChange={(e) => setData('unit', e.target.value)}
-                        />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium">
-                            Minimum Stock
-                        </label>
-                        <input
+                            placeholder="Satuan barang"
+                            required
                             type="text"
-                            className="w-full rounded border p-2"
-                            value={data.min_stock}
-                            onChange={(e) =>
-                                setData('min_stock', Number(e.target.value))
-                            }
+                            value={data.unit}
                         />
                     </div>
                     <div className="flex flex-col gap-1">
-                        <label className="text-sm font-medium">Category</label>
-                        <select
+                        <label className="text-sm font-medium">Stock</label>
+                        <input
                             className="w-full rounded border p-2"
-                            value={data.category_id}
                             onChange={(e) =>
-                                setData('category_id', Number(e.target.value))
+                                setData('stock', Number(e.target.value))
                             }
-                        >
-                            <option value="" className="bg-black">
-                                Select Category
-                            </option>
-                            {categories.map((category) => (
-                                <option
-                                    key={category.id}
-                                    value={category.id}
-                                    className="bg-black"
-                                >
-                                    {category.name}
-                                </option>
-                            ))}
-                        </select>
+                            placeholder="Stok barang"
+                            required
+                            type="number"
+                            value={data.stock}
+                        />
                     </div>
                     <button
                         className="w-full rounded bg-indigo-600 p-2 hover:cursor-pointer hover:bg-indigo-700"

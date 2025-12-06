@@ -17,14 +17,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
-    // Categories
-    Route::get('/categories', [CategoryController::class, 'index']);
-    Route::get('/categories/create', [CategoryController::class, 'create']);
-    Route::post('/categories', [CategoryController::class, 'store']);
-    Route::get('/categories/{category}/edit', [CategoryController::class, 'edit']);
-    Route::patch('/categories/{category}', [CategoryController::class, 'update']);
-    Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
-
     // Items
     Route::get('/items', [ItemController::class, 'index']);
     Route::get('/items/create', [ItemController::class, 'create']);

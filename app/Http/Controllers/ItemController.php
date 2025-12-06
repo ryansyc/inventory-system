@@ -5,22 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Item;
-use App\Models\Category;
 
 class ItemController extends Controller
 {
     public function index()
     {
+        $items = Item::all();
+
         return Inertia::render('Items/Index', [
-            'items' => Item::with('category:id,name')->get()
-        ]);
-    }
+            'items' => $items,
+    ]);
+}
 
     public function create()
     {
         return Inertia::render('Items/Form', [
             'item' => null,
-            'categories' => Category::select('id', 'name')->get()
         ]);
     }
 
@@ -30,8 +30,7 @@ class ItemController extends Controller
             'code' => ['required', 'max:255'],
             'name' => ['required', 'max:255'],
             'unit' => ['required', 'max:255'],
-            'min_stock' => ['required', 'numeric'],
-            'category_id' => ['required', 'exists:categories,id'],
+            'stock' => ['required', 'numeric'],
         ]); 
 
         Item::create($validated);
@@ -44,7 +43,6 @@ class ItemController extends Controller
         return Inertia::render('Items/Form', 
             [
                 'item' => $item,
-                'categories' => Category::select('id', 'name')->get()
             ]);
     }
 
@@ -54,8 +52,7 @@ class ItemController extends Controller
             'code' => ['required', 'max:255'],
             'name' => ['required', 'max:255'],
             'unit' => ['required', 'max:255'],
-            'min_stock' => ['required', 'numeric'],
-            'category_id' => ['required', 'exists:categories,id'],
+            'stock' => ['required', 'numeric'],
         ]); 
 
         $item->update($validated);

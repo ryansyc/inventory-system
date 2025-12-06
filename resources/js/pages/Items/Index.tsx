@@ -40,8 +40,7 @@ export default function Index({ items }: Props) {
         code: item.code,
         name: item.name,
         unit: item.unit,
-        min_stok: item.min_stock,
-        category: item.category.name,
+        stock: item.stock,
     }));
 
     return (
@@ -59,26 +58,28 @@ export default function Index({ items }: Props) {
                     <TableCaption>A list of your items.</TableCaption>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[50px]">ID</TableHead>
+                            <TableHead className="w-[50px] text-center">
+                                No
+                            </TableHead>
                             <TableHead>Code</TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Unit</TableHead>
-                            <TableHead>Min Stock</TableHead>
-                            <TableHead>Category</TableHead>
+                            <TableHead>Stock</TableHead>
                             <TableHead className="text-right">
                                 Actions
                             </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {data.map((item) => (
+                        {data.map((item, index) => (
                             <TableRow key={item.id}>
-                                <TableCell>{item.id}</TableCell>
+                                <TableCell className="text-center">
+                                    {index + 1}
+                                </TableCell>
                                 <TableCell>{item.code}</TableCell>
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{item.unit}</TableCell>
-                                <TableCell>{item.min_stok}</TableCell>
-                                <TableCell>{item.category}</TableCell>
+                                <TableCell>{item.stock}</TableCell>
                                 <TableCell>
                                     <div className="flex justify-end gap-4">
                                         <a
