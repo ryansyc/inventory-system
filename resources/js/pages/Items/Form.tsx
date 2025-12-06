@@ -82,9 +82,7 @@ export default function Form({ item }: Props) {
                         <label className="text-sm font-medium">Stock</label>
                         <input
                             className="w-full rounded border p-2"
-                            onChange={(e) =>
-                                setData('stock', Number(e.target.value))
-                            }
+                            onChange={(e) => setData('stock', e.target.value)}
                             placeholder="Stok barang"
                             required
                             type="number"
