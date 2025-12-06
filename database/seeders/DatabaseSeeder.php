@@ -29,31 +29,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Buat kategori + item + stock
-        $categories = Category::factory()
-            ->count(5)
-            ->has(
-                Item::factory()
-                    ->count(10)
-                    ->has(Stock::factory())
-            )
-            ->create();
-
-        // Ambil semua item sekali saja agar tidak query berulang
-        $items = \App\Models\Item::pluck('id');
-
-        // Buat transaksi + detail
-        Transaction::factory()
-            ->count(20)
-            ->create()
-            ->each(function ($transaction) use ($items) {
-                TransactionDetail::factory()
-                    ->count(rand(1, 5))
-                    ->create([
-                        'transaction_id' => $transaction->id,
-                        'item_id'        => $items->random(), // pilih item secara acak
-                    ]);
-            });
+        
 
     }
 }
