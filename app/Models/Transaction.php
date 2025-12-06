@@ -11,13 +11,13 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'date',
         'type',
-        'description',
+        'date',
+        'notes',
     ];
 
-    public function transaction_details()
+    public function transaction_items()
     {
-        return $this->hasMany(TransactionDetail::class);
+        return $this->hasMany(TransactionItem::class);
     }
 }

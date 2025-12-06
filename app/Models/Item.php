@@ -13,22 +13,11 @@ class Item extends Model
         'code',
         'name',
         'unit',
-        'min_stock',
-        'category_id',
+        'stock',
     ];
 
-    public function category()
+    public function transaction_items()
     {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function stocks()
-    {
-        return $this->hasMany(Stock::class);
-    }
-
-    public function transaction_details()
-    {
-        return $this->hasMany(TransactionDetail::class);
+        return $this->hasMany(TransactionItem::class);
     }
 }

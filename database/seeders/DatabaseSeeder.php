@@ -6,10 +6,8 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Item;
-use App\Models\Category;
-use App\Models\Stock;
 use App\Models\Transaction;
-use App\Models\TransactionDetail;
+use App\Models\TransactionItem;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,7 +27,24 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        
+        // generate item
+        $items = Item::factory()->count(50)->create();
 
+        // generate transaksi + detail
+        Transaction::factory()
+            ->count(20)
+            ->create()
+            ->each(function ($transaction) use ($items) {
+
+                // pilih random 1–5 item
+                $selected = $items->random(rand(1, 5));
+
+                foreach ($selected as $item) {
+                    TransactionItem::factory()->create([
+                        'transaction_id' => $transaction->id,
+                        'item_id'        => $item->id,
+                    ]);
+                }
+            });
     }
 }

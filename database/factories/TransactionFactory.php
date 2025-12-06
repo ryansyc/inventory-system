@@ -19,9 +19,9 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'date'        => $this->faker->date(),
-            'type'        => $this->faker->randomElement(['in', 'out']),
-            'description' => $this->faker->sentence(),
+            'type'      => $this->faker->randomElement(['in', 'out']),
+            'date'      => $this->faker->dateTimeBetween('-1 year'),
+            'notes'     => $this->faker->sentence(),
         ];
     }
 }
