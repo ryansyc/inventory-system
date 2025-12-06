@@ -36,7 +36,7 @@ class ItemController extends Controller
 
         Item::create($validated);
 
-        return redirect()->route('items.index');
+        return redirect('/items');
     }
 
     public function edit(Item $item)
@@ -60,12 +60,12 @@ class ItemController extends Controller
 
         $item->update($validated);
 
-        return redirect()->route('items.index');
+        return redirect('/items');
     }
 
     public function destroy(Item $item)
     {
         $item->delete();
-        return redirect()->route('items.index');
+        return redirect('/items');
     }
 }
