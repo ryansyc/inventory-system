@@ -16,11 +16,17 @@ class TransactionItemFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
+        $price = $this->faker->numberBetween(1000, 50000);
+        $qty   = $this->faker->numberBetween(1, 50);
+
         return [
             'transaction_id' => Transaction::factory(),
             'item_id'        => Item::factory(),
-            'quantity'       => $this->faker->numberBetween(1, 50),];
+            'quantity'       => $qty,
+            'price'          => $price,
+            'total_price'    => $qty * $price,
+        ];
     }
 }

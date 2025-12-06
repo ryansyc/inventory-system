@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ['in', 'out']);
             $table->date('date');
+            $table->integer('total_amount');
             $table->text('notes');
             $table->timestamps();
         });

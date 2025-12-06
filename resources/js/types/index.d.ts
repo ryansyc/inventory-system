@@ -47,24 +47,7 @@ export interface Item {
     code: string;
     name: string;
     unit: string;
-    category_id: number;
-    min_stock: number;
-    created_at: string;
-    updated_at: string;
-    category: Category
-}
-
-export interface Category {
-    id: number;
-    name: string;
-    created_at: string;
-    updated_at: string;
-}
-
-export interface Stock {
-    id: number;
-    item_id: number;
-    quantity: number;
+    stock: number;
     created_at: string;
     updated_at: string;
 }
@@ -73,8 +56,7 @@ export interface Transaction {
     id: number;
     type: string;
     date: string;
-    description: string;
-    quantity: number;
+    notes: string;
     created_at: string;
     updated_at: string;
 }

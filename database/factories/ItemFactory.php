@@ -12,7 +12,7 @@ class ItemFactory extends Factory
         return [
             'code'      => strtoupper($this->faker->bothify('SKU-#####')),
             'name'      => $this->faker->words(2, true),
-            'unit'      => 'pcs',
+            'unit'      => $this->faker->randomElement(['pcs', 'box', 'kg']),
             'stock'     => $this->faker->numberBetween(0, 500),
         ];
     }

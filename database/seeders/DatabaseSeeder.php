@@ -16,35 +16,39 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Buat master item terlebih dahulu
+        Item::factory()->count(50)->create();
 
-        User::firstOrCreate(
-            ['email' => 'a@a.com'],
-            [
-                'name' => 'Test User',
-                'password' => 'password',
-                'email_verified_at' => now(),
-            ]
-        );
-
-        // generate item
-        $items = Item::factory()->count(50)->create();
-
-        // generate transaksi + detail
+        // Buat transaksi
         Transaction::factory()
             ->count(20)
             ->create()
-            ->each(function ($transaction) use ($items) {
+            ->each(function ($trx) {
+                // Ambil beberapa item random
+                $itemIds = Item::inRandomOrder()->take(rand(2, 6))->pluck('id');
 
-                // pilih random 1–5 item
-                $selected = $items->random(rand(1, 5));
+                $total = 0;
 
-                foreach ($selected as $item) {
-                    TransactionItem::factory()->create([
-                        'transaction_id' => $transaction->id,
-                        'item_id'        => $item->id,
+                foreach ($itemIds as $id) {
+                    $qty   = rand(1, 20);
+                    $price = rand(1000, 30000);
+                    $lineTotal = $qty * $price;
+
+                    TransactionItem::create([
+                        'transaction_id' => $trx->id,
+                        'item_id'        => $id,
+                        'quantity'       => $qty,
+                        'price'          => $price,
+                        'total_price'    => $lineTotal,
                     ]);
+
+                    $total += $lineTotal;
                 }
+
+                // update total transaksi
+                $trx->update([
+                    'total_amount' => $total
+                ]);
             });
     }
 }
