@@ -9,6 +9,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Support\Colors\Color;
+
 
 class TransactionsTable
 {
@@ -40,7 +42,9 @@ class TransactionsTable
                     ])
             ])
             ->recordActions([
-                ViewAction::make(),
+                ViewAction::make()
+                    ->color('primary')
+                    ->badge(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

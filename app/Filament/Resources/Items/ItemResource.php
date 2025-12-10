@@ -17,6 +17,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Columns\IconColumn;
 use Illuminate\Database\Eloquent\Builder;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class ItemResource extends Resource
 {
@@ -70,6 +71,9 @@ class ItemResource extends Resource
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
+            ])
+            ->bulkActions([
+                ExportBulkAction::make()
             ]);
     }
 
