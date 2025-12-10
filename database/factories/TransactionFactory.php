@@ -17,7 +17,7 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => $this->faker->randomElement(['in', 'out']),
+            'type' => $this->faker->randomElement(['Inbound', 'Outbound']),
             'description' => $this->faker->optional(0.7)->sentence(),
         ];
     }
