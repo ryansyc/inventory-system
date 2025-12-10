@@ -12,7 +12,7 @@ class CreateTransaction extends CreateRecord
     protected static string $resource = TransactionResource::class;
 
     protected function handleRecordCreation(array $data): Model
-    {
+    {   
         $transactionItems = $data['transactionItems'];
 
         foreach ($transactionItems as $incomingItem) {

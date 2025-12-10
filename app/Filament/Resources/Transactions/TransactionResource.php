@@ -42,7 +42,6 @@ class TransactionResource extends Resource
         return [
             'index' => ListTransactions::route('/'),
             'create' => CreateTransaction::route('/create'),
-            'edit' => EditTransaction::route('/{record}/edit'),
         ];
     }
 }

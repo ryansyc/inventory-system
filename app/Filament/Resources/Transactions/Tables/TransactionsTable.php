@@ -15,6 +15,7 @@ class TransactionsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->recordAction(null)
             ->columns([
                 TextColumn::make('created_at')
                     ->dateTime('M j, Y | H:i:s')

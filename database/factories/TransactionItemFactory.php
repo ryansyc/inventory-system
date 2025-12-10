@@ -17,10 +17,16 @@ class TransactionItemFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {
+    {   
+        $itemBuilder = Item::factory(); 
+        $item = $itemBuilder->createOne();
+
         return [
             'transaction_id' => Transaction::factory(),
-            'item_id' => Item::factory(),
+            'item_id' => $item->id,
+            'code' => $item->code,
+            'name' => $item->name,
+            'unit' => $item->unit,
             'quantity' => $this->faker->numberBetween(1, 10),
         ];
     }

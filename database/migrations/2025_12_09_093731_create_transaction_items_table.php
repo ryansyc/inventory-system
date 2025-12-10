@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaction_id')->constrained()->cascadeOnDelete();
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
+            $table->string('code');
+            $table->string('name');
+            $table->string('unit');
             $table->integer('quantity');
             $table->timestamps();
         });

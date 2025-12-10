@@ -66,7 +66,7 @@ class TransactionForm
                         TextInput::make('quantity')
                             ->required(),
                     ])
-                    ->dehydrated(true),
+                    ->dehydrated(true)
             ]);
     }
 }
