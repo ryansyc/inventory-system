@@ -13,7 +13,9 @@ class ListTransactions extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Add')
+                ->icon('heroicon-s-plus'),
         ];
     }
 }

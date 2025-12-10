@@ -17,7 +17,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Columns\IconColumn;
 use Illuminate\Database\Eloquent\Builder;
-use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use App\Filament\Exports\ItemExporter;
+use Filament\Actions\ExportBulkAction;
 
 class ItemResource extends Resource
 {
@@ -36,6 +37,7 @@ class ItemResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('name')
             ->columns([
                 TextColumn::make('code')
                     ->sortable()
@@ -46,6 +48,7 @@ class ItemResource extends Resource
                 TextColumn::make('unit')
                     ->sortable(),
                 TextColumn::make('quantity')
+                    ->alignCenter()
                     ->sortable(),
                 TextColumn::make('status')
                     ->badge()
@@ -53,8 +56,7 @@ class ItemResource extends Resource
                         'Available' => 'success',
                         'Low' => 'warning',
                         'Empty' => 'danger',
-                    })
-                    ->sortable(),
+                    }),
             ])
             ->filters([
                 SelectFilter::make('unit')
@@ -68,12 +70,9 @@ class ItemResource extends Resource
             ->recordActions([
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ])
-            ->bulkActions([
                 ExportBulkAction::make()
+                    ->exporter(ItemExporter::class)
+                    ->color('primary'),
             ]);
     }
 

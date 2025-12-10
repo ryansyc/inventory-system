@@ -10,6 +10,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Support\Colors\Color;
+use App\Filament\Exports\ProductExporter;
+use Filament\Actions\ExportBulkAction;
 
 
 class TransactionsTable
@@ -45,11 +47,6 @@ class TransactionsTable
                 ViewAction::make()
                     ->color('primary')
                     ->badge(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ]);
     }
 }
